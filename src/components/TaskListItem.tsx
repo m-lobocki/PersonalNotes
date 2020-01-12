@@ -1,25 +1,55 @@
-import React from "react";
+import React, {SyntheticEvent} from "react";
 import {Task} from "../models/Task";
 import {TaskList} from "./TaskList";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
 export interface TaskListItemProps {
     task: Task;
     className?: string;
 }
 
-export class TaskListItem extends React.Component<TaskListItemProps, {}> {
+export interface TaskListItemState {
+    isExpanded: boolean;
+    hasBeenClicked: boolean;
+}
+
+export class TaskListItem extends React.Component<TaskListItemProps, TaskListItemState> {
+    readonly state = {isExpanded: false, hasBeenClicked: false};
+
+    toggleExpansion = () => {
+        this.setState(state => {
+            return {isExpanded: !state.isExpanded, hasBeenClicked: true}
+        });
+    };
+
+    stopPropagation = (event: SyntheticEvent) => {
+        event.stopPropagation();
+    };
+
     render() {
-        let itemInfoClass = "item__info";
-        if (this.props.task.relatedTasks.length > 0) {
-            itemInfoClass += " item__info--has-tasks";
-        }
+        const relatedTasks: Task[] = this.props.task.relatedTasks;
+        const hasRelatedTasks: boolean = relatedTasks.length > 0;
+        const isExpanded = this.state.isExpanded;
         return (
             <div className="task-list__item item">
-                <div className={itemInfoClass}>
-                    <p>{this.props.task.title}</p>
+                <div className={"item__info info " + (hasRelatedTasks ? "item__info--has-tasks" : "")}>
+                    <input type="checkbox" checked={this.props.task.isDone}/>
                     <p>{this.props.task.description}</p>
+                    {
+                        hasRelatedTasks &&
+                        <figure>//todo component
+                            <FontAwesomeIcon
+                                className={"info__icon " + (isExpanded ? "info__icon--expanded" : (this.state.hasBeenClicked ? "info__icon--shrank" : ""))}
+                                onClick={this.toggleExpansion}
+                                icon={faChevronRight}/>
+                        </figure>
+                    }
                 </div>
-                <TaskList className="item__related-tasks" tasks={this.props.task.relatedTasks}/>
+                {
+                    isExpanded &&
+                    <TaskList className="item__related-tasks" tasks={relatedTasks}/>
+                }
             </div>
         );
     }

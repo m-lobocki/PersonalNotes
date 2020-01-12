@@ -14,7 +14,7 @@ export class TaskList extends React.Component<TaskListProps, {}> {
             return null;
         }
         return (
-            <div className={"task-list " + this.props.className}>
+            <div className={"task-list " + (this.props.className || "")}>
                 {this.props.tasks.map(task =>
                     <TaskListItem key={task.id} task={task}/>
                 )}
