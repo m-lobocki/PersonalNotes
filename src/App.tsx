@@ -15,17 +15,17 @@ export default class App extends React.Component<{}, AppState> {
         this.state = {
             rootTasks: [
                 {
-                    id: "t1", title: "task1", description: "great task", relatedTasks: [
+                    id: "t1", isDone: false, description: "great task", relatedTasks: [
                         {
-                            id: 't11', title: "task11", description: "task related", relatedTasks: [
-                                {id: 't111', title: 'task111', description: 'even more related', relatedTasks: []}
+                            id: 't11', isDone: true, description: "task related", relatedTasks: [
+                                {id: 't111', isDone: true, description: 'even more related', relatedTasks: []}
                             ]
                         },
-                        {id: 't12', title: "task12", description: "task related 2", relatedTasks: []},
+                        {id: 't12', isDone: false, description: "task related 2", relatedTasks: []},
                     ]
                 },
-                {id: "t2", title: "task2", description: "awsom task", relatedTasks: []},
-                {id: "t3", title: "task3", description: "super task", relatedTasks: []},
+                {id: "t2", isDone: true, description: "awsom task", relatedTasks: []},
+                {id: "t3", isDone: false, description: "super task", relatedTasks: []},
             ]
         };
     }
