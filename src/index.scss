@@ -1,3 +1,9 @@
+//global styles
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: 'Segoe UI', 'Roboto', 'Helvetica', sans-serif;
 }
@@ -7,6 +13,6 @@ code {
 }
 
 //reset
-body, p, label {
+body, p, label, figure {
   margin: 0;
 }
