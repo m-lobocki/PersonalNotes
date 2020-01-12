@@ -1,9 +1,6 @@
-export class Task {
-    constructor(
-        public id: string,
-        public title: string,
-        public description: string,
-        public relatedTasks: Task[]
-    ) {
-    }
+export interface Task {
+    id: string,
+    isDone: boolean,
+    description: string,
+    relatedTasks: Task[]
 }
