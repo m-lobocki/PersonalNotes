@@ -18,9 +18,7 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
     readonly state = {isExpanded: false, hasBeenClicked: false};
 
     toggleExpansion = () => {
-        this.setState(state => {
-            return {isExpanded: !state.isExpanded, hasBeenClicked: true}
-        });
+        this.setState(state => ({isExpanded: !state.isExpanded, hasBeenClicked: true}));
     };
 
     stopPropagation = (event: SyntheticEvent) => {
@@ -36,19 +34,16 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
                 <div className={"item__info info " + (hasRelatedTasks ? "item__info--has-tasks" : "")}>
                     <input type="checkbox" checked={this.props.task.isDone}/>
                     <p>{this.props.task.description}</p>
-                    {
-                        hasRelatedTasks &&
-                        <figure>//todo component
-                            <FontAwesomeIcon
-                                className={"info__icon " + (isExpanded ? "info__icon--expanded" : (this.state.hasBeenClicked ? "info__icon--shrank" : ""))}
-                                onClick={this.toggleExpansion}
-                                icon={faChevronRight}/>
-                        </figure>
+                    {hasRelatedTasks &&
+                    <figure className="icon-wrapper" onClick={this.toggleExpansion}>
+                        <FontAwesomeIcon
+                            className={"info__icon " + (isExpanded ? "info__icon--expanded" : (this.state.hasBeenClicked ? "info__icon--shrank" : ""))}
+                            icon={faChevronRight}/>
+                    </figure>
                     }
                 </div>
-                {
-                    isExpanded &&
-                    <TaskList className="item__related-tasks" tasks={relatedTasks}/>
+                {isExpanded &&
+                <TaskList className="item__related-tasks" tasks={relatedTasks}/>
                 }
             </div>
         );

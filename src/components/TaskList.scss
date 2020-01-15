@@ -40,13 +40,7 @@
 }
 
 .info {
-  & > &__icon {
-    margin-left: auto;
-
-    &:hover {
-      background-color: red;
-    }
-
+  & > .icon-wrapper > &__icon {
     &--expanded {
       @include icon-rotate-animation(0, 90deg);
     }
@@ -54,5 +48,19 @@
     &--shrank {
       @include icon-rotate-animation(90deg, 0);
     }
+  }
+}
+
+.icon-wrapper {
+  transition: 200ms all;
+  display: flex;
+  height: 1.2rem;
+  width: 1.2rem;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+
+  &:hover {
+    background-color: lightgray;
   }
 }
