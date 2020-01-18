@@ -1,28 +1,31 @@
 import React, {SyntheticEvent} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {IconDefinition} from "@fortawesome/fontawesome-common-types";
+import "./Icon.scss";
 
-export interface IconProps {
+interface IconProps {
     icon: IconDefinition;
     onClick?: (event: SyntheticEvent) => void;
     activatedModifierName?: string;
     deactivatedModifierName?: string;
 }
 
-export interface IconState {
-    hasBeenClickedYet: boolean;
+interface IconState {
     isActive: boolean;
 }
 
-export class Icon extends React.Component<IconProps, IconState> {
-    readonly state = {hasBeenClickedYet: false, isActive: false};
+export default class Icon extends React.Component<IconProps, IconState> {
     static defaultProps = {
         activatedModifierName: 'activated',
         deactivatedModifierName: 'deactivated',
     };
+    readonly state = {
+        hasBeenClickedYet: false,
+        isActive: false
+    };
 
     handleIconClick = (event: SyntheticEvent) => {
-        this.setState(state => ({isActive: !state.isActive, hasBeenClickedYet: true}));
+        this.setState(state => ({isActive: !state.isActive}));
         this.props.onClick?.(event);
     };
 
@@ -30,12 +33,13 @@ export class Icon extends React.Component<IconProps, IconState> {
         return (
             <figure className="icon" onClick={this.handleIconClick}>
                 <FontAwesomeIcon
+                    icon={this.props.icon}
                     className={
                         "icon__glyph " + (this.state.isActive
                             ? `icon__glyph--${this.props.activatedModifierName} `
-                            : (this.state.hasBeenClickedYet && `icon__glyph--${this.props.deactivatedModifierName}`))
+                            : `icon__glyph--${this.props.deactivatedModifierName}`)
                     }
-                    icon={this.props.icon}/>
+                />
             </figure>
         );
     }
