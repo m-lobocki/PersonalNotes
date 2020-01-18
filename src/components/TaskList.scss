@@ -1,26 +1,14 @@
-.task-list {
+@mixin icon-rotate($angle) {
+  transform: rotate($angle);
+  transition: 150ms transform;
 }
 
-@mixin icon-rotate-animation($startAngle, $endAngle) {
-  $name: unique_id() !global;
-  animation-name: $name;
-  animation-duration: 150ms;
-  animation-fill-mode: forwards;
-  animation-timing-function: linear;
-  @keyframes #{$name} {
-    0% {
-      transform: rotate($startAngle)
-    }
-    100% {
-      transform: rotate($endAngle)
-    }
-  }
-}
 
 .item {
+  width: 20rem;
+
   &__info {
     display: flex;
-    width: 20rem;
     padding: 1rem;
     margin-bottom: .5rem;
     border: 1px solid rgb(230, 230, 230);
@@ -31,36 +19,19 @@
       box-shadow: 0 3px 7px #cccccc;
       cursor: pointer;
     }
-  }
 
+    > .icon > .icon__glyph {
+      &--activated {
+        @include icon-rotate(90deg);
+      }
+
+      &--deactivated {
+        @include icon-rotate(0);
+      }
+    }
+  }
 
   &__related-tasks {
     margin-left: 1rem;
-  }
-}
-
-.info {
-  & > .icon-wrapper > &__icon {
-    &--expanded {
-      @include icon-rotate-animation(0, 90deg);
-    }
-
-    &--shrank {
-      @include icon-rotate-animation(90deg, 0);
-    }
-  }
-}
-
-.icon-wrapper {
-  transition: 200ms all;
-  display: flex;
-  height: 1.2rem;
-  width: 1.2rem;
-  justify-content: center;
-  align-items: center;
-  margin-left: auto;
-
-  &:hover {
-    background-color: lightgray;
   }
 }
