@@ -6,6 +6,7 @@ import "./TaskList.scss";
 export interface TaskListProps {
     tasks: Task[];
     className?: string;
+    onTaskChange?: (changedTask: Task) => void;
 }
 
 export class TaskList extends React.Component<TaskListProps, {}> {
@@ -16,7 +17,7 @@ export class TaskList extends React.Component<TaskListProps, {}> {
         return (
             <div className={"task-list " + (this.props.className || "")}>
                 {this.props.tasks.map(task =>
-                    <TaskListItem key={task.id} task={task}/>
+                    <TaskListItem key={task.id} task={task} onTaskChange={this.props.onTaskChange}/>
                 )}
             </div>
         );
