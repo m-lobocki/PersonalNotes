@@ -6,6 +6,7 @@ import "./Icon.scss";
 interface IconProps {
     icon: IconDefinition;
     onClick?: (event: SyntheticEvent) => void;
+    className?: string;
     activatedModifierName?: string;
     deactivatedModifierName?: string;
 }
@@ -31,7 +32,7 @@ export default class Icon extends React.Component<IconProps, IconState> {
 
     render() {
         return (
-            <figure className="icon" onClick={this.handleIconClick}>
+            <figure className={"icon " + (this.props.className ?? '')} onClick={this.handleIconClick}>
                 <FontAwesomeIcon
                     icon={this.props.icon}
                     className={
