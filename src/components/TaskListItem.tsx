@@ -35,16 +35,18 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
         const hasRelatedTasks: boolean = relatedTasks.length > 0;
         const isExpanded = this.state.isExpanded;
         return (
-            <div className="task-list__item item" onClick={this.toggleTaskStatus}>
-                <div className={"item__info info " + (hasRelatedTasks ? "item__info--has-tasks" : "")}>
-                    <input type="checkbox" checked={this.props.task.isDone} onChange={this.toggleTaskStatus}/>
-                    <p>{this.props.task.description}</p>
+            <div className={"task-list__task task " + (this.props.task.isDone ? "task--done" : "")}
+                 onClick={this.toggleTaskStatus}>
+                <div className={"task__info info " + (hasRelatedTasks ? "task__info--has-tasks" : "")}>
+                    <input className="task__status status" type="checkbox" checked={this.props.task.isDone}
+                           onChange={this.toggleTaskStatus}/>
+                    <p className="task__title title">{this.props.task.description}</p>
                     {hasRelatedTasks &&
-                    <Icon icon={faChevronRight} onClick={this.toggleExpansion}/>
+                    <Icon className="task__icon" icon={faChevronRight} onClick={this.toggleExpansion}/>
                     }
                 </div>
                 {isExpanded &&
-                <TaskList className="item__related-tasks" tasks={relatedTasks} onTaskChange={this.props.onTaskChange}/>
+                <TaskList className="task__related-tasks" tasks={relatedTasks} onTaskChange={this.props.onTaskChange}/>
                 }
             </div>
         );
