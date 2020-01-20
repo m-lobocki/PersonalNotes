@@ -1,8 +1,8 @@
 import React, {SyntheticEvent} from "react";
-import {Task} from "../models/Task";
+import {Task} from "../../models/Task";
 import {TaskList} from "./TaskList";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
-import Icon from "./Icon";
+import Icon from "../Icon";
 import "./TaskListItem.scss";
 
 interface TaskListItemProps {

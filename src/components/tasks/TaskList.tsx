@@ -1,5 +1,5 @@
 import React from "react";
-import {Task} from "../models/Task";
+import {Task} from "../../models/Task";
 import {TaskListItem} from "./TaskListItem";
 import "./TaskList.scss";
 
