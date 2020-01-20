@@ -1,7 +1,8 @@
 import React from 'react';
-import './App.scss';
-import {TaskList} from "./components/TaskList";
+import {TaskList} from "./components/tasks/TaskList";
 import {Task} from "./models/Task";
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import NavigationBar from "./components/NavigationBar";
 
 interface AppState {
     rootTasks: Task[];
@@ -46,9 +47,22 @@ export default class App extends React.Component<{}, AppState> {
 
     render() {
         return (
-            <div className="app">
-                <TaskList tasks={this.state.rootTasks} onTaskChange={this.handleTaskChange}/>
-            </div>
+            <Router>
+                <>
+                    <NavigationBar/>
+                    <Switch>
+                        <Route exact path="/">
+                            HOME
+                        </Route>
+                        <Route path="/tasks">
+                            <TaskList tasks={this.state.rootTasks} onTaskChange={this.handleTaskChange}/>
+                        </Route>
+                        <Route path="/contacts">
+                            Contacts
+                        </Route>
+                    </Switch>
+                </>
+            </Router>
         );
     }
 }
