@@ -4,6 +4,11 @@
 .task {
   width: 20rem;
 
+  &__expansion-button {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
   &__info {
     display: flex;
     padding: 1rem;
@@ -17,18 +22,18 @@
       box-shadow: 0 3px 7px #cccccc;
       cursor: pointer;
 
-      .status {
-        &::after {
-          background-color: $accent-hover;
-        }
-
-        &:checked::after {
-          background-color: lighten($accent-hover, 10%);
-        }
-      }
+      //.status {
+      //  &::after {
+      //    background-color: $accent-hover;
+      //  }
+      //
+      //  &:checked::after {
+      //    background-color: lighten($accent-hover, 10%);
+      //  }
+      //}
     }
 
-    > .icon > .icon__glyph {
+    > .task__expansion-button > .icon__glyph {
       &--activated {
         @include icon-rotate(90deg);
       }
@@ -43,50 +48,46 @@
     margin-left: 1rem;
   }
 
-  &__status {
-    padding: 0;
-    margin: 0;
-    position: relative;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    overflow: hidden;
-    height: 25px !important;
-    width: 25px !important;
-    border: 1px solid gray;
-    border-radius: 50%;
-    transition: 200ms all;
-
-    &::after {
-      position: absolute;
-      background-color: white;
-      border: 1px solid transparent;
-      content: " ";
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      z-index: 1;
-      transition: 200ms all;
-    }
-
-    &:checked {
-      &::after {
-        background-color: $accent;
-      }
-    }
-  }
+  //&__status {
+  //  padding: 0;
+  //  margin: 0;
+  //  position: relative;
+  //  -moz-appearance: none;
+  //  -webkit-appearance: none;
+  //  appearance: none;
+  //  overflow: hidden;
+  //  height: 25px !important;
+  //  width: 25px !important;
+  //  border: 1px solid gray;
+  //  border-radius: 50%;
+  //  transition: 200ms all;
+  //
+  //  &::after {
+  //    position: absolute;
+  //    background-color: white;
+  //    border: 1px solid transparent;
+  //    content: " ";
+  //    top: 0;
+  //    left: 0;
+  //    bottom: 0;
+  //    right: 0;
+  //    z-index: 1;
+  //    transition: 200ms all;
+  //  }
+  //
+  //  &:checked::after {
+  //    background-color: $accent;
+  //  }
+  //}
 
   &__title {
     margin: 0 0 0 .5rem;
   }
 
   &--done {
-    .info {
-      background-color: rgb(245, 245, 245);
-    }
+    background-color: rgb(245, 245, 245);
 
-    .title {
+    .task__title {
       text-decoration: line-through;
       color: gray;
     }
