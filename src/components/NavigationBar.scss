@@ -1,17 +1,42 @@
+@import "../variables";
+
 .navigation-bar {
   width: 100%;
   height: 3rem;
   position: sticky;
   top: 0;
+  display: flex;
   z-index: 10;
   background-color: white;
   box-shadow: 0 3px 7px #cccccc;
 
-  &__brand {
+  &__brand, &__link {
+    display: flex;
+    align-items: center;
+    padding: 0 .75rem;
+    text-decoration: none;
+    color: #3c3c3c;
+    transition: all 200ms;
+  }
 
+  &__brand {
+    margin-right: auto;
+    font-weight: bold;
+
+    &:hover {
+      color: lighten(#3c3c3c, 20%);
+    }
   }
 
   &__link {
-    
+    &--active {
+      background-color: $accent;
+      color: white;
+    }
+
+    &:hover {
+      background-color: $accent-hover;
+      color: white;
+    }
   }
 }
