@@ -1,4 +1,16 @@
+@import 'variables';
+
 @mixin icon-rotate($angle) {
   transform: rotate($angle);
   transition: 150ms transform;
+}
+
+@mixin icon-button($isTransparent: false) {
+  border: $control-border;
+  border-radius: 0;
+  padding: 0;
+
+  &:hover {
+    background-color: if($isTransparent, lightgray, $accent-hover);
+  }
 }
