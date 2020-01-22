@@ -1,0 +1,4 @@
+@mixin icon-rotate($angle) {
+  transform: rotate($angle);
+  transition: 150ms transform;
+}
