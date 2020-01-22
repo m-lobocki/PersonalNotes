@@ -50,17 +50,19 @@ export default class App extends React.Component<{}, AppState> {
             <Router>
                 <>
                     <NavigationBar/>
-                    <Switch>
-                        <Route exact path="/">
-                            HOME
-                        </Route>
-                        <Route path="/tasks">
-                            <TaskList tasks={this.state.rootTasks} onTaskChange={this.handleTaskChange}/>
-                        </Route>
-                        <Route path="/contacts">
-                            Contacts
-                        </Route>
-                    </Switch>
+                    <main className="main-page">
+                        <Switch>
+                            <Route exact path="/">
+                                HOME
+                            </Route>
+                            <Route path="/tasks">
+                                <TaskList tasks={this.state.rootTasks} onTaskChange={this.handleTaskChange}/>
+                            </Route>
+                            <Route path="/contacts">
+                                Contacts
+                            </Route>
+                        </Switch>
+                    </main>
                 </>
             </Router>
         );
