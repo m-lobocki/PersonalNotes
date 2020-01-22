@@ -4,6 +4,7 @@ import {TaskList} from "./TaskList";
 import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import Icon from "../Icon";
 import "./TaskListItem.scss";
+import ToggleButton from "../ToggleButton";
 
 interface TaskListItemProps {
     task: Task;
@@ -40,11 +41,15 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
                  onClick={this.toggleTaskStatus}>
                 <div
                     className={"task__info info" + (hasRelatedTasks ? " task__info--has-tasks" : "") + (isTaskDone ? " task--done" : "")}>
-                     <input className="task__status status" type="checkbox" checked={isTaskDone}
-                            onChange={this.toggleTaskStatus}/>
+                    <input className="task__status status" type="checkbox" checked={isTaskDone}
+                           onChange={this.toggleTaskStatus}/>
                     <p className="task__title title">{this.props.task.description}</p>
                     {hasRelatedTasks &&
-                    <Icon className="task__expansion-button" icon={faChevronRight} onClick={this.toggleExpansion}/>
+                    <ToggleButton className="task__expansion-button"
+                                  onToggle={this.toggleExpansion}
+                                  isToggled={this.state.isExpanded}>
+                        <Icon icon={faChevronRight}/>
+                    </ToggleButton>
                     }
                 </div>
                 {isExpanded &&
