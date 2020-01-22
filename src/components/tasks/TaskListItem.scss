@@ -1,6 +1,5 @@
 @import "../../mixins";
-
-$doneTaskBackgroundColor: rgba(64, 191, 64, 0.62);
+@import "../../variables";
 
 .task {
   width: 20rem;
@@ -20,11 +19,11 @@ $doneTaskBackgroundColor: rgba(64, 191, 64, 0.62);
 
       .status {
         &::after {
-          background-color: lighten($doneTaskBackgroundColor, 30%);
+          background-color: $accent-hover;
         }
 
         &:checked::after {
-          background-color: lighten($doneTaskBackgroundColor, 10%);
+          background-color: lighten($accent-hover, 10%);
         }
       }
     }
@@ -73,7 +72,7 @@ $doneTaskBackgroundColor: rgba(64, 191, 64, 0.62);
 
     &:checked {
       &::after {
-        background-color: $doneTaskBackgroundColor;
+        background-color: $accent;
       }
     }
   }
