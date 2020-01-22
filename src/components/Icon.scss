@@ -1,11 +1,11 @@
 .icon {
   transition: 200ms background-color;
   display: flex;
-  height: 1.2rem;
-  width: 1.2rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  margin: 0 0 0 auto;
   justify-content: center;
   align-items: center;
-  margin-left: auto;
 
   &:hover {
     background-color: lightgray;
