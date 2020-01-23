@@ -50,43 +50,8 @@
   }
 
   &__status {
-    @include accented-focus();
-    padding: 0;
-    margin: 0;
-    position: relative;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    overflow: hidden;
-    height: 25px !important;
-    width: 25px !important;
-    border: $control-border;
+    @include choice-box();
     border-radius: 50%;
-    transition: 200ms all;
-
-    &::after {
-      position: absolute;
-      background-color: white;
-      border: 1px solid transparent;
-      content: " ";
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      z-index: 1;
-      transition: 200ms all;
-      font-family: 'Font Awesome 5 Free', serif;
-      font-weight: 900;
-      color: white;
-    }
-
-    &:checked::after {
-      background-color: $accent;
-      content: '\f00c';
-    }
   }
 
   &__title {

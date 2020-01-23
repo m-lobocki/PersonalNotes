@@ -6,11 +6,60 @@
 }
 
 @mixin icon-button($isTransparent: false) {
+  @include accented-focus();
   border: $control-border;
   border-radius: 0;
   padding: 0;
 
   &:hover {
     background-color: if($isTransparent, lightgray, $accent-hover);
+  }
+}
+
+@mixin accented-focus {
+  &:focus {
+    outline: none !important;
+    box-shadow: 0 0 3px 1px $accent;
+  }
+}
+
+@mixin choice-box {
+  @include accented-focus();
+  padding: 0;
+  margin: 0;
+  position: relative;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  overflow: hidden;
+  height: 25px !important;
+  width: 25px !important;
+  border: $control-border;
+  transition: 200ms all;
+  cursor: pointer;
+
+  &::after {
+    position: absolute;
+    background-color: white;
+    border: 1px solid transparent;
+    content: " ";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    transition: 200ms all;
+    font-family: 'Font Awesome 5 Free', serif;
+    font-weight: 900;
+    color: white;
+    cursor: pointer;
+  }
+
+  &:checked::after {
+    background-color: $accent;
+    content: '\f00c';
   }
 }
