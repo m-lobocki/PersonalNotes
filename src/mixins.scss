@@ -62,4 +62,8 @@
     background-color: $accent;
     content: '\f00c';
   }
+
+  &:hover::after {
+    background-color: $accent-hover;
+  }
 }
