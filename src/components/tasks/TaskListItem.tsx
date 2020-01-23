@@ -5,6 +5,7 @@ import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
 import Icon from "../Icon";
 import "./TaskListItem.scss";
 import ToggleButton from "../ToggleButton";
+import {c} from "../../helpers/class-name";
 
 interface TaskListItemProps {
     task: Task;
@@ -19,9 +20,8 @@ interface TaskListItemState {
 export class TaskListItem extends React.Component<TaskListItemProps, TaskListItemState> {
     readonly state = {isExpanded: false};
 
-    toggleExpansion = (event: SyntheticEvent) => {
-        this.setState(state => ({isExpanded: !state.isExpanded}));
-        event.stopPropagation();
+    toggleExpansion = (isToggled: boolean) => {
+        this.setState({isExpanded: isToggled});
     };
 
     toggleTaskStatus = (event: SyntheticEvent) => {
@@ -37,17 +37,20 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
         const isExpanded: boolean = this.state.isExpanded;
         const isTaskDone: boolean = this.props.task.isDone;
         return (
-            <div className={"task-list__task task"}
+            <div className="task-list__task task"
                  onClick={this.toggleTaskStatus}>
-                <div
-                    className={"task__info info" + (hasRelatedTasks ? " task__info--has-tasks" : "") + (isTaskDone ? " task--done" : "")}>
-                    <input className="task__status status" type="checkbox" checked={isTaskDone}
+                <div className={c`task__info info ${{
+                    'task__info--has-tasks': hasRelatedTasks,
+                    'task--done': isTaskDone
+                }}`}>
+                    <input className="task__status status"
+                           type="checkbox"
+                           checked={isTaskDone}
                            onChange={this.toggleTaskStatus}/>
                     <p className="task__title title">{this.props.task.description}</p>
                     {hasRelatedTasks &&
-                    <ToggleButton className="task__expansion-button"
-                                  onToggle={this.toggleExpansion}
-                                  isToggled={this.state.isExpanded}>
+                    <ToggleButton className="task__expansion-button" onToggle={this.toggleExpansion}
+                                  isToggled={isExpanded}>
                         <Icon icon={faChevronRight}/>
                     </ToggleButton>
                     }

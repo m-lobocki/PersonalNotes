@@ -2,6 +2,7 @@ import React from "react";
 import {Task} from "../../models/Task";
 import {TaskListItem} from "./TaskListItem";
 import "./TaskList.scss";
+import {c} from "../../helpers/class-name";
 
 export interface TaskListProps {
     tasks: Task[];
@@ -15,7 +16,7 @@ export class TaskList extends React.Component<TaskListProps, {}> {
             return null;
         }
         return (
-            <div className={"task-list " + (this.props.className || "")}>
+            <div className={c`task-list ${this.props.className}`}>
                 {this.props.tasks.map(task =>
                     <TaskListItem key={task.id} task={task} onTaskChange={this.props.onTaskChange}/>
                 )}
