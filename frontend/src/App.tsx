@@ -19,6 +19,7 @@ export default class App extends React.Component<{}, AppState> {
         super(props);
         const tasksJson = localStorage.tasksJson || '[]';
         this.state = {rootTasks: JSON.parse(tasksJson)};
+        fetch('/test').then(c => c.text()).then(console.log);
     }
 
     componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<AppState>): void {
