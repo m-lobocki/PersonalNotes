@@ -1,10 +1,11 @@
 import React, {SyntheticEvent} from "react";
 import {Task} from "../../models/Task";
 import {TaskList} from "./TaskList";
-import {faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import {faChevronRight, faPlus} from "@fortawesome/free-solid-svg-icons";
 import Icon from "../Icon";
 import "./TaskListItem.scss";
 import {c} from "../../helpers/class-name";
+import ProgressBar from "../ProgressBar";
 
 interface TaskListItemProps {
     task: Task;
@@ -30,34 +31,57 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
         this.props.onTaskChange?.(task);
     };
 
+    countRelatedTaskStatuses(task: Task): [number, number] {
+        let all: number = task.relatedTasks.length;
+        let done: number = task.relatedTasks.filter(task => task.isDone).length;
+        for (const relatedTask of task.relatedTasks) {
+            const [allRelated, doneRelated] = this.countRelatedTaskStatuses(relatedTask);
+            all += allRelated;
+            done += doneRelated;
+        }
+        return [all, done];
+    }
+
+    calculateTaskProgress(task: Task): number {
+        const [all, done] = this.countRelatedTaskStatuses(task);
+        if (all === 0) {
+            return 0;
+        }
+        return done * 100 / all;
+    }
+
     render() {
         const relatedTasks: Task[] = this.props.task.relatedTasks;
         const hasRelatedTasks: boolean = relatedTasks.length > 0;
         const isExpanded: boolean = this.state.isExpanded;
         const isTaskDone: boolean = this.props.task.isDone;
+        const doneRelatedTaskPercentage: number = this.calculateTaskProgress(this.props.task);
         return (
-            <div className="task-list__task task"
-                 onClick={this.toggleExpansion}>
-                <div className={c`task__info info ${{
-                    'task__info--has-tasks': hasRelatedTasks,
-                    'task--done': isTaskDone
+            <section className="task-list__related-tasks"
+                     onClick={this.toggleExpansion}>
+                <div className={c`task-item ${{
+                    'task-item--has-related-tasks': hasRelatedTasks,
+                    'task-item--done': isTaskDone
                 }}`}>
-                    <input className="task__status status"
-                           onClick={e => e.stopPropagation()}
-                           type="checkbox"
-                           checked={isTaskDone}
-                           onChange={this.toggleTaskStatus}/>
-                    <p className="task__title title">{this.props.task.description}</p>
-                    {hasRelatedTasks &&
-                    <Icon
-                        className={c`task__expansion-indicator ${`task__expansion-indicator--${this.state.isExpanded ? 'activated' : 'deactivated'}`}`}
-                        icon={faChevronRight}/>
-                    }
+                    <div className={c`task-item__info`}>
+                        <input className="task-item__status" onClick={e => e.stopPropagation()} type="checkbox"
+                               checked={isTaskDone} onChange={this.toggleTaskStatus}/>
+                        <p className="task-item__title">{this.props.task.description}</p>
+                        <div className="task-item__toolbar">
+                            {hasRelatedTasks &&
+                            <Icon
+                                className={c`task-item__expansion-indicator ${`task-item__expansion-indicator--${this.state.isExpanded ? 'activated' : 'deactivated'}`}`}
+                                icon={faChevronRight}/>
+                            }
+                            <Icon icon={faPlus}/>
+                        </div>
+                    </div>
+                    <ProgressBar value={doneRelatedTaskPercentage}/>
                 </div>
                 {isExpanded &&
-                <TaskList className="task__related-tasks" tasks={relatedTasks} onTaskChange={this.props.onTaskChange}/>
+                <TaskList tasks={relatedTasks} onTaskChange={this.props.onTaskChange}/>
                 }
-            </div>
+            </section>
         );
     }
 }

@@ -1,13 +1,45 @@
 @import "../../mixins";
 @import "../../variables";
 
-.task {
-  width: 20rem;
+.task-list__related-tasks {
+  > .task-list {
+    margin-left: 1rem;
+  }
+}
+
+.task-item {
+  display: flex;
+  width: 30rem;
+  height: 3.5rem;
+  margin-bottom: .5rem;
+  flex-direction: column;
+  border: $control-border;
+  background-color: white;
+  transition: 200ms all;
+  $parent: &;
+
+  &--done {
+    #{$parent}__title {
+      text-decoration: line-through;
+      color: gray;
+    }
+  }
+
+  &--has-related-tasks:hover {
+    box-shadow: $medium-box-shadow;
+    cursor: pointer;
+  }
+
+  &__info {
+    display: flex;
+    flex-grow: 1;
+    padding: .25rem;
+    align-items: center;
+  }
 
   &__expansion-indicator {
     height: 1.5rem;
     width: 1.5rem;
-    margin: 0 0 0 auto;
 
     &--activated {
       .icon__glyph {
@@ -20,25 +52,13 @@
         @include icon-rotate(0);
       }
     }
-  }
 
-  &__info {
-    display: flex;
-    padding: 1rem;
-    align-items: center;
-    margin-bottom: .5rem;
-    border: $control-border;
-    background-color: white;
-    transition: 200ms all;
-
-    &--has-tasks:hover {
-      box-shadow: $medium-box-shadow;
-      cursor: pointer;
-    }
-  }
-
-  &__related-tasks {
-    margin-left: 1rem;
+    //&::before {
+    //  margin-right: .5rem;
+    //  height: 100%;
+    //  border-left: $control-border;
+    //  content: "";
+    //}
   }
 
   &__status {
@@ -50,10 +70,11 @@
     margin: 0 0 0 .5rem;
   }
 
-  &--done {
-    .task__title {
-      text-decoration: line-through;
-      color: gray;
-    }
+  &__toolbar {
+    margin: 0 0 0 auto;
+  }
+
+  &__progress {
+    width: 100%;
   }
 }

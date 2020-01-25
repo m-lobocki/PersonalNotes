@@ -66,4 +66,8 @@
   &:hover::after {
     background-color: $accent-hover;
   }
+
+  &:active::after {
+    background-color: $accent-active;
+  }
 }
