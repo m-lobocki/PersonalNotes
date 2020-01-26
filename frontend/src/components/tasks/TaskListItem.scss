@@ -7,6 +7,24 @@
   }
 }
 
+.task-list-enter {
+  @include composite-transitions();
+  opacity: 0;
+}
+
+.task-list-enter.task-list-enter-active {
+  opacity: 1;
+}
+
+.task-list-exit {
+  @include composite-transitions();
+  opacity: 1;
+}
+
+.task-list-exit.task-list-exit-active {
+  opacity: 0;
+}
+
 .task-item {
   display: flex;
   width: 30rem;
@@ -15,7 +33,8 @@
   flex-direction: column;
   border: $control-border;
   background-color: white;
-  transition: 200ms all;
+  position: relative;
+  transition: $color-transition-time box-shadow;
   $parent: &;
 
   &--done {
@@ -38,12 +57,16 @@
   }
 
   &__expansion-indicator {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    bottom: 0;
     height: 1.5rem;
     width: 1.5rem;
 
     &--activated {
       .icon__glyph {
-        @include icon-rotate(90deg);
+        @include icon-rotate(180deg);
       }
     }
 
@@ -52,13 +75,6 @@
         @include icon-rotate(0);
       }
     }
-
-    //&::before {
-    //  margin-right: .5rem;
-    //  height: 100%;
-    //  border-left: $control-border;
-    //  content: "";
-    //}
   }
 
   &__status {

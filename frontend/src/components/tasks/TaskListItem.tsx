@@ -1,11 +1,12 @@
 import React, {SyntheticEvent} from "react";
 import {Task} from "../../models/Task";
 import {TaskList} from "./TaskList";
-import {faChevronRight, faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faChevronDown, faPlus} from "@fortawesome/free-solid-svg-icons";
 import Icon from "../Icon";
 import "./TaskListItem.scss";
 import {c} from "../../helpers/class-name";
 import ProgressBar from "../ProgressBar";
+import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 interface TaskListItemProps {
     task: Task;
@@ -68,19 +69,19 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
                                checked={isTaskDone} onChange={this.toggleTaskStatus}/>
                         <p className="task-item__title">{this.props.task.description}</p>
                         <div className="task-item__toolbar">
-                            {hasRelatedTasks &&
-                            <Icon
-                                className={c`task-item__expansion-indicator ${`task-item__expansion-indicator--${this.state.isExpanded ? 'activated' : 'deactivated'}`}`}
-                                icon={faChevronRight}/>
-                            }
                             <Icon icon={faPlus}/>
                         </div>
                     </div>
+                    {hasRelatedTasks &&
+                    <Icon
+                        className={c`task-item__expansion-indicator ${`task-item__expansion-indicator--${this.state.isExpanded ? 'activated' : 'deactivated'}`}`}
+                        icon={faChevronDown}/>
+                    }
                     <ProgressBar value={doneRelatedTaskPercentage}/>
                 </div>
-                {isExpanded &&
-                <TaskList tasks={relatedTasks} onTaskChange={this.props.onTaskChange}/>
-                }
+                <CSSTransition in={isExpanded} classNames={"task-list"} timeout={300} unmountOnExit>
+                    <TaskList tasks={relatedTasks} onTaskChange={this.props.onTaskChange}/>
+                </CSSTransition>
             </section>
         );
     }
