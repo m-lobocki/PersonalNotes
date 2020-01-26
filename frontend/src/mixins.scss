@@ -1,8 +1,8 @@
 @import 'variables';
 
 @mixin icon-rotate($angle) {
+  @include composite-transitions();
   transform: rotate($angle);
-  transition: 150ms transform;
 }
 
 @mixin icon-button($isTransparent: false) {
@@ -35,10 +35,10 @@
   height: 25px !important;
   width: 25px !important;
   border: $control-border;
-  transition: 200ms all;
   cursor: pointer;
 
   &::after {
+    @include color-transitions();
     position: absolute;
     background-color: white;
     border: 1px solid transparent;
@@ -51,7 +51,6 @@
     bottom: 0;
     right: 0;
     z-index: 1;
-    transition: 200ms all;
     font-family: 'Font Awesome 5 Free', serif;
     font-weight: 900;
     color: white;
@@ -70,4 +69,21 @@
   &:active::after {
     background-color: $accent-active;
   }
+}
+
+@mixin multiple-transitions($properties, $transition-time) {
+  $value: ();
+  @each $property in $properties {
+    $transition: $property + ' ' + $transition-time;
+    $value: append($value, $transition, comma);
+  }
+  transition: $value;
+}
+
+@mixin color-transitions() {
+  @include multiple-transitions((color, background-color, border-color), $color-transition-time);
+}
+
+@mixin composite-transitions() {
+  @include multiple-transitions((transform, opacity), $composition-transition-time);
 }
