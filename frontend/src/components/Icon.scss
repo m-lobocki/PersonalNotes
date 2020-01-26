@@ -1,5 +1,7 @@
+@import "../mixins";
+
 .icon {
-  transition: 200ms background-color;
+  @include color-transitions();
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,12 +1,14 @@
 @import "../variables";
+@import "../mixins";
 
 .progress-bar {
   height: 2px;
 
   &__filler {
+    @include composite-transitions();
+    transform-origin: left;
     margin: 0;
     background-color: $accent;
     height: 100%;
-    transition: 150ms all;
   }
 }

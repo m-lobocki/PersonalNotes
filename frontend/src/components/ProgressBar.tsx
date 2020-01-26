@@ -15,7 +15,7 @@ export default class ProgressBar extends Component<ProgressBarProps> {
         }
         return (
             <div className="progress-bar">
-                <figure className="progress-bar__filler" style={{'width': value + '%'}}/>
+                <figure className="progress-bar__filler" style={{'transform': `scaleX(${value/100})`}}/>
             </div>
         );
     }
