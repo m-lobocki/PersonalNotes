@@ -4,20 +4,24 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "node": "ts-node-dev src/server.ts",
+    "node": "ts-node-dev src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "ts-node": "^8.6.2",
+    "@types/node": "^12.12.25",
+    "@types/express": "^4.17.2",
+    "@types/mysql": "^2.15.8"
   },
   "dependencies": {
-    "@types/express": "^4.17.2",
-    "@types/mysql": "^2.15.8",
-    "@types/node": "^12.12.25",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.14.1",
+    "reflect-metadata": "^0.1.10",
+    "typeorm": "0.2.22"
   }
 }
