@@ -6,7 +6,7 @@ import Icon from "../Icon";
 import "./TaskListItem.scss";
 import {c} from "../../helpers/class-name";
 import ProgressBar from "../ProgressBar";
-import {CSSTransition, TransitionGroup} from "react-transition-group";
+import {CSSTransition} from "react-transition-group";
 
 interface TaskListItemProps {
     task: Task;
