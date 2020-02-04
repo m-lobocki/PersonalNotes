@@ -1,6 +1,6 @@
 import React from "react";
 import {Task} from "../../models/Task";
-import {TaskListItem} from "./TaskListItem";
+import TaskListItem from "./TaskListItem";
 import "./TaskList.scss";
 import {c} from "../../helpers/class-name";
 

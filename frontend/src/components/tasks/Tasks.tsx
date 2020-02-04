@@ -1,24 +1,31 @@
 import React, {Component} from 'react';
 import {Task} from "../../models/Task";
 import {TaskList} from "./TaskList";
+import {connect} from "react-redux";
+import {addTask} from "../../redux/actions";
 
-interface TasksState {
-    rootTasks: Task[];
+interface TasksProps {
+    tasks: Task[];
+    loadData(): any;
 }
 
 //todo get rid of local storage
-export default class Tasks extends Component<{}, TasksState> {
-    constructor(props: {}) {
+class Tasks extends Component<TasksProps, {}> {
+    constructor(props: any) {
         super(props);
-        const tasksJson = localStorage.tasksJson || '[]';
-        this.state = {rootTasks: JSON.parse(tasksJson)};
+        // () => {
+        //     const tasksJson = localStorage.tasksJson || '[]';
+        //     const tasks = JSON.parse(tasksJson);
+        // }
     }
 
-
-    componentDidUpdate(prevProps: Readonly<{}>, prevState: Readonly<TasksState>): void {
-        this.autoSave(prevState.rootTasks);
+    componentDidMount(): void {
+        this.props.loadData();
     }
 
+    // componentDidUpdate(prevProps: Readonly<TasksProps>, prevState: Readonly<TasksState>): void {
+    //     this.autoSave(prevState.rootTasks);
+    // }
     autoSave(tasks: Task[]): void {
         localStorage.tasksJson = JSON.stringify(tasks)
     }
@@ -34,16 +41,31 @@ export default class Tasks extends Component<{}, TasksState> {
     }
 
     handleTaskChange = (changedTask: Task) => {
-        this.setState(state => ({
-            rootTasks: this.updateTask(changedTask, state.rootTasks)
-        }));
+        // this.setState(state => ({
+        //     tasks: this.updateTask(changedTask, state.rootTasks)
+        // }));
     };
 
     render() {
         return (
             <>
-                <TaskList tasks={this.state.rootTasks} onTaskChange={this.handleTaskChange}/>
+                <TaskList tasks={this.props.tasks} onTaskChange={this.handleTaskChange}/>
             </>
         );
     }
 }
+
+const mapStateToProps = (state: any) => {
+    console.log(state);
+    return ({
+        tasks: state.tasks
+    });
+};
+
+const mapDispatchToProps = (dispatch: any) => {
+    return {
+        loadData: () => dispatch(addTask({id: 'dddd', isDone: false, relatedTasks: [], description: 'TESTING REDUX'}))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Tasks);

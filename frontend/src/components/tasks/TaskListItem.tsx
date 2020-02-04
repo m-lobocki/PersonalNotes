@@ -7,17 +7,21 @@ import "./TaskListItem.scss";
 import {c} from "../../helpers/class-name";
 import ProgressBar from "../ProgressBar";
 import {CSSTransition} from "react-transition-group";
+import {connect} from "react-redux";
+import {addTask} from "../../redux/actions";
 
 interface TaskListItemProps {
     task: Task;
     className?: string;
     onTaskChange?: (changedTask: Task) => void;
+    onTaskAdd?: any;
 }
 
 interface TaskListItemState {
     isExpanded: boolean;
 }
 
+//todo try to split into more components
 export class TaskListItem extends React.Component<TaskListItemProps, TaskListItemState> {
     readonly state = {isExpanded: false};
 
@@ -69,7 +73,7 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
                                checked={isTaskDone} onChange={this.toggleTaskStatus}/>
                         <p className="task-item__title">{this.props.task.description}</p>
                         <div className="task-item__toolbar">
-                            <Icon icon={faPlus}/>
+                            <Icon onClick={this.props.onTaskAdd} icon={faPlus}/>
                         </div>
                     </div>
                     {hasRelatedTasks &&
@@ -86,3 +90,9 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
         );
     }
 }
+
+const mapDispatchToProps = (dispatch: any) => ({
+    onTaskAdd: () => dispatch(addTask({description: 'test1', relatedTasks: [], isDone: false, id: ''}))
+});
+
+export default connect(null, mapDispatchToProps)(TaskListItem);
