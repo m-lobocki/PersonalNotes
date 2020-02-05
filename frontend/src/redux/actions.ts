@@ -6,3 +6,12 @@ export const addTask = (task: Task) => ({
     id: uuid.v4(),
     task
 });
+
+export const loadTasks = () => ({
+    type: 'LOAD_TASKS'
+});
+
+export const updateTask = (updatedTask: Task) => ({
+    type: 'UPDATE_TASK',
+    updatedTask
+});
