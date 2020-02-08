@@ -25,12 +25,12 @@ export const tasks = (state = [], action: any) => {
 };
 
 function updateTask(updatedTask: Task, tasks: Task[]): Task[] {
-    const index: number = tasks.findIndex((task: Task) => task.id === updatedTask.id);
-    if (index === -1) {
-        tasks.map(task => updateTask(updatedTask, task.relatedTasks));
-    } else {
-        tasks[index] = {...updatedTask};
-    }
+    // const index: number = tasks.findIndex((task: Task) => task.id === updatedTask.id);
+    // if (index === -1) {
+    //     tasks.map(task => updateTask(updatedTask, task.relatedTasks));
+    // } else {
+    //     tasks[index] = {...updatedTask};
+    // }
     console.log(tasks);
     return [...tasks];
 }

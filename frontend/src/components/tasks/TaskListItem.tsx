@@ -1,6 +1,6 @@
 import React, {SyntheticEvent} from "react";
 import {Task} from "../../models/Task";
-import {TaskList} from "./TaskList";
+import TaskList from "./TaskList";
 import {faChevronDown, faPlus} from "@fortawesome/free-solid-svg-icons";
 import Icon from "../Icon";
 import "./TaskListItem.scss";
@@ -37,14 +37,15 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
     };
 
     countRelatedTaskStatuses(task: Task): [number, number] {
-        let all: number = task.relatedTasks.length;
-        let done: number = task.relatedTasks.filter(task => task.isDone).length;
-        for (const relatedTask of task.relatedTasks) {
-            const [allRelated, doneRelated] = this.countRelatedTaskStatuses(relatedTask);
-            all += allRelated;
-            done += doneRelated;
-        }
-        return [all, done];
+        // let all: number = task.relatedTasks.length;
+        // let done: number = task.relatedTasks.filter(task => task.isDone).length;
+        // for (const relatedTask of task.relatedTasks) {
+        //     const [allRelated, doneRelated] = this.countRelatedTaskStatuses(relatedTask);
+        //     all += allRelated;
+        //     done += doneRelated;
+        // }
+        return [1,1];
+        // return [all, done];
     }
 
     calculateTaskProgress(task: Task): number {
@@ -56,7 +57,7 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
     }
 
     render() {
-        const relatedTasks: Task[] = this.props.task.relatedTasks;
+        const relatedTasks: Task[] = [];
         const hasRelatedTasks: boolean = relatedTasks.length > 0;
         const isExpanded: boolean = this.state.isExpanded;
         const isTaskDone: boolean = this.props.task.isDone;
@@ -92,7 +93,7 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
 }
 
 const mapDispatchToProps = (dispatch: any) => ({
-    onTaskAdd: () => dispatch(addTask({description: 'test1', relatedTasks: [], isDone: false, id: ''}))
+    onTaskAdd: () => dispatch(addTask({description: 'test1', isDone: false, id: ''}))
 });
 
 export default connect(null, mapDispatchToProps)(TaskListItem);
