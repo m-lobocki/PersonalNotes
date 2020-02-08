@@ -28,9 +28,9 @@ export class TaskList extends React.Component<TaskListProps, {}> {
 }
 
 const mapStateToProps = (state: any, ownProperties: any) => {
-    console.log(state);
-    console.log(ownProperties);
-    return {tasks: state.tasks.filter((task: Task) => task.parentId === ownProperties.parentId)}
+    return {
+        tasks: state.tasks.filter((task: Task) => task.parentId === ownProperties.parentId)
+    }
 };
 
 export default connect(mapStateToProps)(TaskList);
