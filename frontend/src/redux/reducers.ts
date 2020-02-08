@@ -1,6 +1,7 @@
 import {combineReducers} from 'redux'
 import {Task} from "../models/Task";
 
+//todo use normalizr
 export const tasks = (state = [], action: any) => {
     switch (action.type) {
         case 'ADD_TASK':
@@ -25,13 +26,8 @@ export const tasks = (state = [], action: any) => {
 };
 
 function updateTask(updatedTask: Task, tasks: Task[]): Task[] {
-    // const index: number = tasks.findIndex((task: Task) => task.id === updatedTask.id);
-    // if (index === -1) {
-    //     tasks.map(task => updateTask(updatedTask, task.relatedTasks));
-    // } else {
-    //     tasks[index] = {...updatedTask};
-    // }
-    console.log(tasks);
+    const index: number = tasks.findIndex((task: Task) => task.id === updatedTask.id);
+    tasks[index] = updatedTask;
     return [...tasks];
 }
 
