@@ -17,7 +17,7 @@ class Tasks extends Component<TasksProps, {}> {
     render() {
         return (
             <>
-                <TaskList onTaskChange={this.props.updateTask}/>
+                <TaskList parentId={null} onTaskChange={this.props.updateTask}/>
             </>
         );
     }

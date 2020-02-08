@@ -12,6 +12,7 @@ import {addTask} from "../../redux/actions";
 
 interface TaskListItemProps {
     task: Task;
+    relatedTasks?: Task[];
     className?: string;
     onTaskChange?: (changedTask: Task) => void;
     onTaskAdd?: any;
@@ -36,6 +37,7 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
         this.props.onTaskChange?.(task);
     };
 
+    //todo: in reducer?
     countRelatedTaskStatuses(task: Task): [number, number] {
         // let all: number = task.relatedTasks.length;
         // let done: number = task.relatedTasks.filter(task => task.isDone).length;
@@ -44,7 +46,7 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
         //     all += allRelated;
         //     done += doneRelated;
         // }
-        return [1,1];
+        return [1, 1];
         // return [all, done];
     }
 
@@ -57,7 +59,7 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
     }
 
     render() {
-        const relatedTasks: Task[] = [];
+        const relatedTasks: Task[] = this.props.relatedTasks ?? [];
         const hasRelatedTasks: boolean = relatedTasks.length > 0;
         const isExpanded: boolean = this.state.isExpanded;
         const isTaskDone: boolean = this.props.task.isDone;
@@ -85,15 +87,19 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
                     <ProgressBar value={doneRelatedTaskPercentage}/>
                 </div>
                 <CSSTransition in={isExpanded} classNames={"task-list"} timeout={300} unmountOnExit>
-                    <TaskList tasks={relatedTasks} onTaskChange={this.props.onTaskChange}/>
+                    <TaskList parentId={this.props.task.id} onTaskChange={this.props.onTaskChange}/>
                 </CSSTransition>
             </section>
         );
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => ({
-    onTaskAdd: () => dispatch(addTask({description: 'test1', isDone: false, id: ''}))
+const mapStateToProps = (state: any, ownProperties: any) => ({
+    relatedTasks: state.tasks.filter((task: Task) => task.parentId === ownProperties.task.id)
 });
 
-export default connect(null, mapDispatchToProps)(TaskListItem);
+const mapDispatchToProps = (dispatch: any, ownProperties: TaskListItemProps) => ({
+    onTaskAdd: () => dispatch(addTask({description: 'test1', isDone: false, parentId: ownProperties.task.id}))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TaskListItem);
