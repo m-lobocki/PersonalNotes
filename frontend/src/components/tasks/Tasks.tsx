@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import {Task} from "../../models/Task";
 import TaskList from "./TaskList";
 import {connect} from "react-redux";
-import {loadTasks, updateTask} from "../../redux/actions";
+import {loadTasks} from "../../redux/actions";
 
 interface TasksProps {
     loadData: () => void;
-    updateTask: (task: Task) => void;
 }
 
 class Tasks extends Component<TasksProps, {}> {
@@ -17,17 +15,14 @@ class Tasks extends Component<TasksProps, {}> {
     render() {
         return (
             <>
-                <TaskList parentId={null} onTaskChange={this.props.updateTask}/>
+                <TaskList parentId={undefined}/>
             </>
         );
     }
 }
 
-const mapDispatchToProps = (dispatch: any) => {
-    return {
-        loadData: () => dispatch(loadTasks()),
-        updateTask: (task: Task) => dispatch(updateTask(task))
-    }
-};
+const mapDispatchToProps = (dispatch: any) => ({
+    loadData: () => dispatch(loadTasks())
+});
 
 export default connect(null, mapDispatchToProps)(Tasks);

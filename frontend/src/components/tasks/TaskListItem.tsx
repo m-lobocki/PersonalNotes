@@ -8,13 +8,13 @@ import {c} from "../../helpers/class-name";
 import ProgressBar from "../ProgressBar";
 import {CSSTransition} from "react-transition-group";
 import {connect} from "react-redux";
-import {addTask} from "../../redux/actions";
+import {addTask, updateTask} from "../../redux/actions";
 
 interface TaskListItemProps {
     task: Task;
     relatedTasks?: Task[];
     className?: string;
-    onTaskChange?: (changedTask: Task) => void;
+    onTaskUpdate?: (changedTask: Task) => void;
     onTaskAdd?: any;
 }
 
@@ -34,7 +34,7 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
     toggleTaskStatus = () => {
         const task: Task = {...this.props.task};
         task.isDone = !task.isDone;
-        this.props.onTaskChange?.(task);
+        this.props.onTaskUpdate?.(task);
     };
 
     //todo: in reducer?
@@ -87,7 +87,7 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
                     <ProgressBar value={doneRelatedTaskPercentage}/>
                 </div>
                 <CSSTransition in={isExpanded} classNames={"task-list"} timeout={300} unmountOnExit>
-                    <TaskList parentId={this.props.task.id} onTaskChange={this.props.onTaskChange}/>
+                    <TaskList parentId={this.props.task.id}/>
                 </CSSTransition>
             </section>
         );
@@ -99,7 +99,8 @@ const mapStateToProps = (state: any, ownProperties: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: any, ownProperties: TaskListItemProps) => ({
-    onTaskAdd: () => dispatch(addTask({description: 'test1', isDone: false, parentId: ownProperties.task.id}))
+    onTaskAdd: () => dispatch(addTask({description: 'test1', isDone: false, parentId: ownProperties.task.id})),
+    onTaskUpdate: (task: Task) => dispatch(updateTask(task))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskListItem);

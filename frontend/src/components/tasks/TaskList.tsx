@@ -20,17 +20,15 @@ export class TaskList extends React.Component<TaskListProps, {}> {
         return (
             <div className={c`task-list ${this.props.className}`}>
                 {this.props.tasks?.map(task =>
-                    <TaskListItem key={task.id} task={task} onTaskChange={this.props.onTaskChange}/>
+                    <TaskListItem key={task.id} task={task}/>
                 )}
             </div>
         );
     }
 }
 
-const mapStateToProps = (state: any, ownProperties: any) => {
-    return {
-        tasks: state.tasks.filter((task: Task) => task.parentId === ownProperties.parentId)
-    }
-};
+const mapStateToProps = (state: any, ownProperties: any) => ({
+    tasks: state.tasks.filter((task: Task) => task.parentId === ownProperties.parentId)
+});
 
 export default connect(mapStateToProps)(TaskList);
