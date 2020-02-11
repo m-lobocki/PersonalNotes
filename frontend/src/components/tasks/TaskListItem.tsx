@@ -7,14 +7,16 @@ import "./TaskListItem.scss";
 import {c} from "../../helpers/class-name";
 import {CSSTransition} from "react-transition-group";
 import {connect} from "react-redux";
-import {addTask, updateTask} from "../../redux/actions";
+import {AppState} from "../../redux/store";
+import uuid from "uuid";
+import {addTask, updateTask} from "../../redux/actions/tasksActions";
 
 interface TaskListItemProps {
     task: Task;
     relatedTasks?: Task[];
     className?: string;
-    onTaskUpdate?: (changedTask: Task) => void;
-    onTaskAdd?: any;
+    addTask?: (task: Task) => void;
+    updateTask?: (changedTask: Task) => void;
 }
 
 interface TaskListItemState {
@@ -33,7 +35,13 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
     toggleTaskStatus = () => {
         const task: Task = {...this.props.task};
         task.isDone = !task.isDone;
-        this.props.onTaskUpdate?.(task);
+        this.props.updateTask?.(task);
+    };
+
+    addTask = (event: SyntheticEvent) => {
+        const newTask: Task = {description: 'dupa', isDone: false, id: uuid.v4(), parentId: this.props.task.id};
+        this.props.addTask?.(newTask);
+        event.stopPropagation();
     };
 
     render() {
@@ -53,7 +61,7 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
                                checked={isTaskDone} onChange={this.toggleTaskStatus}/>
                         <p className="task-item__title">{this.props.task.description}</p>
                         <div className="task-item__toolbar">
-                            <Icon onClick={this.props.onTaskAdd} icon={faPlus}/>
+                            <Icon onClick={this.addTask} icon={faPlus}/>
                         </div>
                     </div>
                     {hasRelatedTasks &&
@@ -70,13 +78,8 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
     }
 }
 
-const mapStateToProps = (state: any, ownProperties: any) => ({
-    relatedTasks: state.tasks.filter((task: Task) => task.parentId === ownProperties.task.id)
+const mapStateToProps = (state: AppState, ownProperties: any) => ({
+    relatedTasks: state.tasks.all.filter((task: Task) => task.parentId === ownProperties.task.id)
 });
 
-const mapDispatchToProps = (dispatch: any, ownProperties: TaskListItemProps) => ({
-    onTaskAdd: () => dispatch(addTask({description: 'test1', isDone: false, parentId: ownProperties.task.id})),
-    onTaskUpdate: (task: Task) => dispatch(updateTask(task))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TaskListItem);
+export default connect(mapStateToProps, {addTask, updateTask})(TaskListItem);

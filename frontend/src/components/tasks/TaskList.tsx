@@ -4,6 +4,7 @@ import TaskListItem from "./TaskListItem";
 import "./TaskList.scss";
 import {c} from "../../helpers/class-name";
 import {connect} from "react-redux";
+import {AppState} from "../../redux/store";
 
 export interface TaskListProps {
     tasks?: Task[];
@@ -27,8 +28,8 @@ export class TaskList extends React.Component<TaskListProps, {}> {
     }
 }
 
-const mapStateToProps = (state: any, ownProperties: any) => ({
-    tasks: state.tasks.filter((task: Task) => task.parentId === ownProperties.parentId)
+const mapStateToProps = (state: AppState, ownProperties: TaskListProps) => ({
+    tasks: state.tasks.all.filter((task: Task) => task.parentId === ownProperties.parentId)
 });
 
 export default connect(mapStateToProps)(TaskList);

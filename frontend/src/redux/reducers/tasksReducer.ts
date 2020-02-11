@@ -1,25 +1,32 @@
-import {combineReducers} from 'redux'
-import {Task} from "../models/Task";
+import {Task} from "../../models/Task";
+
+const initialState: TasksState = {
+    all: []
+};
+
+export interface TasksState {
+    all: Task[];
+}
 
 //todo use normalizr
-export const tasks = (state = [], action: any) => {
+export default function tasksReducer(state = initialState, action: any): TasksState {
     switch (action.type) {
         case 'ADD_TASK':
-            return [
-                ...state,
-                {
-                    ...action.task,
-                    id: action.id
-                }
-            ];
+            return {
+                all: [...state.all, {...action.task}]
+            };
         case 'LOAD_TASKS':
             const tasksJson = localStorage.tasksJson || '[]';
             const tasks = JSON.parse(tasksJson);
-            return [...tasks];
+            return {
+                all: [...tasks]
+            };
         case 'UPDATE_TASK':
-            const updatedTasks = updateTask(action.updatedTask, [...state]);
+            const updatedTasks = updateTask(action.updatedTask, [...state.all]);
             localStorage.tasksJson = JSON.stringify(updatedTasks);
-            return updatedTasks;
+            return {
+                all: updatedTasks
+            };
         default:
             return state;
     }
@@ -30,7 +37,3 @@ function updateTask(updatedTask: Task, tasks: Task[]): Task[] {
     tasks[index] = updatedTask;
     return [...tasks];
 }
-
-export const rootReducer = combineReducers({
-    tasks
-});

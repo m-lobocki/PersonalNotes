@@ -1,5 +1,7 @@
-import {Task} from "../models/Task";
 import uuid from "uuid";
+import {Task} from "../../models/Task";
+
+export const ADD_TASK = '';
 
 export const addTask = (task: Task) => ({
     type: 'ADD_TASK',
