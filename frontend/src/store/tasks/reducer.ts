@@ -1,9 +1,5 @@
 import {Task} from "../../models/Task";
-import {ADD_TASK, LOAD_TASKS, TasksActionsTypes, UPDATE_TASK} from "../actions/tasksActions";
-
-const initialState: TasksState = {
-    all: []
-};
+import {ADD_TASK, LOAD_TASKS, UPDATE_TASK, TasksActionsTypes} from "./actions";
 
 export interface TasksState {
     all: Task[];
@@ -31,6 +27,10 @@ export default function tasksReducer(state = initialState, action: TasksActionsT
         default:
             return state;
     }
+};
+
+const initialState: TasksState = {
+    all: []
 };
 
 function updateTask(updatedTask: Task, tasks: Task[]): Task[] {

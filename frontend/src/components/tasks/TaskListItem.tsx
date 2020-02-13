@@ -7,10 +7,10 @@ import "./TaskListItem.scss";
 import {c} from "../../helpers/class-name";
 import {CSSTransition} from "react-transition-group";
 import {connect} from "react-redux";
-import {AppState} from "../../redux/store";
 import uuid from "uuid";
-import {addTask, updateTask} from "../../redux/actions/tasksActions";
-import {getRelatedTasks} from "../../redux/selectors/tasksSelectors";
+import {AppState} from "../../store";
+import {addTask, updateTask} from "../../store/tasks/actions";
+import {getRelatedTasks} from "../../store/tasks/selectors";
 
 interface TaskListItemProps {
     task: Task;

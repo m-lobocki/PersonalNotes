@@ -4,8 +4,8 @@ import TaskListItem from "./TaskListItem";
 import "./TaskList.scss";
 import {c} from "../../helpers/class-name";
 import {connect} from "react-redux";
-import {AppState} from "../../redux/store";
-import {getRelatedTasks} from "../../redux/selectors/tasksSelectors";
+import {AppState} from "../../store";
+import {getRelatedTasks} from "../../store/tasks/selectors";
 
 export interface TaskListProps {
     tasks?: Task[];

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import TaskList from "./TaskList";
 import {connect} from "react-redux";
-import {loadTasks} from "../../redux/actions/tasksActions";
+import {loadTasks} from "../../store/tasks/actions";
 
 interface TasksProps {
     loadTasks: typeof loadTasks;
