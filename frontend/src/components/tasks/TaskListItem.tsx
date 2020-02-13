@@ -40,7 +40,8 @@ export class TaskListItem extends React.Component<TaskListItemProps, TaskListIte
     };
 
     addTask = (event: SyntheticEvent) => {
-        const newTask: Task = {description: 'dupa', isDone: false, id: uuid.v4(), parentId: this.props.task.id};
+        //todo add task form
+        const newTask: Task = {description: 'test', isDone: false, id: uuid.v4(), parentId: this.props.task.id};
         this.props.addTask?.(newTask);
         event.stopPropagation();
     };
