@@ -15,7 +15,7 @@ class Tasks extends Component<TasksProps, {}> {
     render() {
         return (
             <>
-                <TaskList parentId={undefined}/>
+                <TaskList/>
             </>
         );
     }
