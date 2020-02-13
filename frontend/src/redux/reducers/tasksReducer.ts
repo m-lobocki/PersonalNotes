@@ -1,4 +1,5 @@
 import {Task} from "../../models/Task";
+import {ADD_TASK, LOAD_TASKS, TasksActionsTypes, UPDATE_TASK} from "../actions/tasksActions";
 
 const initialState: TasksState = {
     all: []
@@ -9,19 +10,19 @@ export interface TasksState {
 }
 
 //todo use normalizr
-export default function tasksReducer(state = initialState, action: any): TasksState {
+export default function tasksReducer(state = initialState, action: TasksActionsTypes): TasksState {
     switch (action.type) {
-        case 'ADD_TASK':
+        case ADD_TASK:
             return {
                 all: [...state.all, {...action.task}]
             };
-        case 'LOAD_TASKS':
+        case LOAD_TASKS:
             const tasksJson = localStorage.tasksJson || '[]';
             const tasks = JSON.parse(tasksJson);
             return {
                 all: [...tasks]
             };
-        case 'UPDATE_TASK':
+        case UPDATE_TASK:
             const updatedTasks = updateTask(action.updatedTask, [...state.all]);
             localStorage.tasksJson = JSON.stringify(updatedTasks);
             return {

@@ -15,8 +15,8 @@ interface TaskListItemProps {
     task: Task;
     relatedTasks?: Task[];
     className?: string;
-    addTask?: (task: Task) => void;
-    updateTask?: (changedTask: Task) => void;
+    addTask?: typeof addTask;
+    updateTask?: typeof updateTask;
 }
 
 interface TaskListItemState {

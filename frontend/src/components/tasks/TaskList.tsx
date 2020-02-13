@@ -10,7 +10,6 @@ export interface TaskListProps {
     tasks?: Task[];
     parentId?: string;
     className?: string;
-    onTaskChange?: (changedTask: Task) => void;
 }
 
 export class TaskList extends React.Component<TaskListProps, {}> {
