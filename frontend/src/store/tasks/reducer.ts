@@ -5,6 +5,10 @@ export interface TasksState {
     all: Task[];
 }
 
+const initialState: TasksState = {
+    all: []
+};
+
 //todo use normalizr
 export default function tasksReducer(state = initialState, action: TasksActionsTypes): TasksState {
     switch (action.type) {
@@ -27,10 +31,6 @@ export default function tasksReducer(state = initialState, action: TasksActionsT
         default:
             return state;
     }
-};
-
-const initialState: TasksState = {
-    all: []
 };
 
 function updateTask(updatedTask: Task, tasks: Task[]): Task[] {
