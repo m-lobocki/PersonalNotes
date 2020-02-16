@@ -31,6 +31,7 @@ export default class App {
             saveUninitialized: false,
             store: new TypeormStore({
                 cleanupLimit: 2,
+                limitSubquery: false,
                 ttl: 86400
             }).connect(getRepository(Session))
         }));
