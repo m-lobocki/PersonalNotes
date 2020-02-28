@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import NavigationBar from "./components/navigation/NavigationBar";
 import Tasks from "./components/tasks/Tasks";
+import AuthorizationTabHost from "./components/authorization/AuthorizationTabHost";
 
 export default class App extends Component {
     render() {
@@ -9,19 +10,16 @@ export default class App extends Component {
             <Router>
                 <>
                     <NavigationBar/>
-                    <main className="main-page">
-                        <Switch>
-                            <Route exact path="/">
-                                HOME
-                            </Route>
-                            <Route path="/tasks">
-                                <Tasks/>
-                            </Route>
-                            <Route path="/contacts">
-                                Contacts
-                            </Route>
-                        </Switch>
-                    </main>
+                    <Switch>
+                        <Route exact path="/">
+                            HOME
+                        </Route>
+                        <Route path="/tasks" component={Tasks}/>
+                        <Route path="/contacts">
+                            Contacts
+                        </Route>
+                        <Route path="/auth" component={AuthorizationTabHost}/>
+                    </Switch>
                 </>
             </Router>
         );
