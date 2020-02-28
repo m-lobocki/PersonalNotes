@@ -5,8 +5,8 @@ export default class GuestNavigationLinks extends Component {
     render() {
         return (
             <>
-                <NavigationLink to="/sign-in">Sign In</NavigationLink>
-                <NavigationLink to="/register">Register</NavigationLink>
+                <NavigationLink to="/auth/sign-in">Sign In</NavigationLink>
+                <NavigationLink to="/auth/register">Register</NavigationLink>
             </>
         );
     }
