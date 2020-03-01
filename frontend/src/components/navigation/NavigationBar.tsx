@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 import "./NavigationBar.scss";
 import {connect} from "react-redux";
 import {AppState} from "../../store";
-import GuestNavigationLinks from "./GuestNavigationLinks";
-import UserNavigationLinks from "./UserNavigationLinks";
+import {withActiveClassNames} from "../../helpers/withActiveClassNames";
 
 interface NavigationBarProps {
     isAuthorized: boolean;
     isNavigationBarVisible: boolean;
 }
+
+const NavigationLink = withActiveClassNames(NavLink, 'navigation-bar__link');
 
 export class NavigationBar extends Component<NavigationBarProps> {
     render() {
@@ -17,7 +18,14 @@ export class NavigationBar extends Component<NavigationBarProps> {
             this.props.isNavigationBarVisible &&
             <nav className="navigation-bar">
                 <Link className="navigation-bar__brand" to="/">Personal Notes</Link>
-                {this.props.isAuthorized ? <UserNavigationLinks/> : <GuestNavigationLinks/>}
+                {this.props.isAuthorized ? <>
+                    <NavigationLink exact to="/">Home</NavigationLink>
+                    <NavigationLink to="/tasks">Tasks</NavigationLink>
+                    <NavigationLink to="/contacts">Contacts</NavigationLink>
+                </> : <>
+                    <NavigationLink to="/auth/sign-in">Sign In</NavigationLink>
+                    <NavigationLink to="/auth/register">Register</NavigationLink>
+                </>}
             </nav>
         );
     }
