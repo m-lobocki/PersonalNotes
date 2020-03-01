@@ -27,8 +27,8 @@ class AuthorizationTabHost extends Component<AuthorizationTabHostProps> {
         return (
             <article className="authorization">
                 <header className="authorization__header">
-                    <NavigationLink to="/auth/sign-in">Sign In</NavigationLink>,
-                    <NavigationLink to="/auth/register">Register</NavigationLink>,
+                    <NavigationLink to="/auth/sign-in">Sign In</NavigationLink>
+                    <NavigationLink to="/auth/register">Register</NavigationLink>
                     <NavigationLink exact to="/"><Icon icon={faArrowRight}/></NavigationLink>
                 </header>
                 <section className="authorization__content">
