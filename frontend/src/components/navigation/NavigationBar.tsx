@@ -10,10 +10,9 @@ interface NavigationBarProps {
     isNavigationBarVisible: boolean;
 }
 
-const NavigationLink = withActiveClassNames(NavLink, 'navigation-bar__link');
-
 export class NavigationBar extends Component<NavigationBarProps> {
     render() {
+        const NavigationLink = withActiveClassNames(NavLink, 'navigation-bar__link');
         return (
             this.props.isNavigationBarVisible &&
             <nav className="navigation-bar">
