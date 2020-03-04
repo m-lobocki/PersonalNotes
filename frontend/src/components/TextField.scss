@@ -1,0 +1,42 @@
+@import '../mixins';
+@import '../variables';
+
+.field {
+  position: relative;
+
+  &__label {
+    @include color-transitions();
+    @include composite-transitions();
+    transition: top, 200ms;
+    position: absolute;
+    left: .6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: text;
+    color: $accent;
+  }
+
+  &__input {
+    @include color-transitions();
+    padding: 1.25rem 0 .25rem .5rem;
+    border: $control-border;
+    border-radius: 0;
+    font-size: 1rem;
+
+    &:focus {
+      outline: none; //todo
+      border-color: $accent;
+    }
+  }
+
+  &__input:focus + &__label,
+  &__input:not(:placeholder-shown) + &__label {
+    transform: none;
+    top: .25rem;
+    font-size: .75rem;
+    font-weight: 800;
+    color: $accent;
+    cursor: default;
+    text-transform: uppercase;
+  }
+}
