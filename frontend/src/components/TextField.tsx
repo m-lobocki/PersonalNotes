@@ -1,4 +1,4 @@
-import React, {Component, DetailedHTMLProps, InputHTMLAttributes} from 'react';
+import React, {Component, HTMLProps} from 'react';
 import "./TextField.scss";
 
 interface TextFieldProps {
@@ -6,9 +6,7 @@ interface TextFieldProps {
     id: any;
 }
 
-type HTMLInputProps = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
-
-export default class TextField extends Component<TextFieldProps & HTMLInputProps> {
+export default class TextField extends Component<TextFieldProps & HTMLProps<HTMLInputElement>> {
     render() {
         const {id, label} = this.props;
         return (
