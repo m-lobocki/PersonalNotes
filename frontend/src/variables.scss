@@ -1,7 +1,8 @@
 $accent: #ee5184;
 $accent-hover: lighten($accent, 10%);
 $accent-active: darken($accent, 10%);
-$control-border: 1px solid rgb(230, 230, 230);
+$control-border-color: rgb(223, 223, 223);
+$control-border: 1px solid $control-border-color;
 $medium-box-shadow: 0 3px 7px #cccccc;
 $color-transition-time: 200ms;
 $composition-transition-time: 300ms;
