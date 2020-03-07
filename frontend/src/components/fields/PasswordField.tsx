@@ -8,7 +8,10 @@ interface PasswordFieldProps extends TextFieldProps {
 export default class PasswordField extends Component<PasswordFieldProps & PropsWithoutRef<HTMLProps<HTMLInputElement>>> {
     render() {
         return (
-            <TextField {...this.props} type="password" fieldClassName="password-field"/>
+            <TextField
+                {...this.props}
+                type="password"
+                fieldClassName="password-field"/>
         );
     }
 }
