@@ -8,10 +8,12 @@ interface TextFieldProps {
 
 export default class TextField extends Component<TextFieldProps & HTMLProps<HTMLInputElement>> {
     render() {
-        const {id, label} = this.props;
+        let props = {...this.props};
+        const {id, label} = props;
+        delete props.label;
         return (
             <div className="text-field">
-                <input className="text-field__input" placeholder=" " {...this.props}/>
+                <input className="text-field__input" placeholder=" " {...props}/>
                 <label className="text-field__label" htmlFor={id}>{label}</label>
             </div>
         );
