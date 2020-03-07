@@ -10,9 +10,9 @@ export default class TextField extends Component<TextFieldProps & HTMLProps<HTML
     render() {
         const {id, label} = this.props;
         return (
-            <div className="field">
-                <input className="field__input" placeholder=" " {...this.props}/>
-                <label className="field__label" htmlFor={id}>{label}</label>
+            <div className="text-field">
+                <input className="text-field__input" placeholder=" " {...this.props}/>
+                <label className="text-field__label" htmlFor={id}>{label}</label>
             </div>
         );
     }
