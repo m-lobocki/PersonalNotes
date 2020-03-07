@@ -81,7 +81,7 @@
 }
 
 @mixin color-transitions() {
-  @include multiple-transitions((color, background-color, border-color), $color-transition-time);
+  @include multiple-transitions((color, background-color, border-color, box-shadow), $color-transition-time);
 }
 
 @mixin composite-transitions() {
