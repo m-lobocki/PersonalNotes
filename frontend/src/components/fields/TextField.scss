@@ -32,19 +32,19 @@
       border-color: $accent;
       box-shadow: 0 0 8px 2px rgba($accent, .25);
     }
-  }
 
-  &__input:not(:placeholder-shown) {
-    padding: 1.25rem 0 .25rem .5rem;
+    &--has-text {
+      padding: 1.25rem 0 .25rem .5rem;
 
-    & + #{$block}__label {
-      top: .25rem;
-      left: .5rem;
-      transform: none;
-      font-size: .75rem;
-      font-weight: 800;
-      color: $accent;
-      cursor: default;
+      & + #{$block}__label {
+        top: .25rem;
+        left: .5rem;
+        transform: none;
+        font-size: .75rem;
+        font-weight: 800;
+        color: $accent;
+        cursor: default;
+      }
     }
   }
 }
