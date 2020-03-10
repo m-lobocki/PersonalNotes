@@ -23,3 +23,23 @@ code {
 input, select, textarea, button {
   font-family: inherit;
 }
+
+.button {
+  @include focus();
+  border: $accent-border;
+  border-radius: 0;
+  padding: .4rem .75rem;
+
+  &--primary {
+    background-color: $accent;
+    color: white;
+
+    &:hover {
+      background-color: $accent-hover;
+    }
+
+    &:active {
+      background-color: $accent-active;
+    }
+  }
+}
