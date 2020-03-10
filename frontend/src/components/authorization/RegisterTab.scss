@@ -1,0 +1,16 @@
+@import '../../variables';
+
+.register {
+  flex-direction: column;
+  display: flex;
+  padding: 1rem;
+
+  .field + .field {
+    margin-top: .5rem;
+  }
+
+  .register-button {
+    margin-top: 1rem;
+    height: $input-height;
+  }
+}
