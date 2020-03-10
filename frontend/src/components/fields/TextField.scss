@@ -2,7 +2,7 @@
 @import '../../variables';
 
 .text-field {
-  height: 48px;
+  height: $input-height;
   position: relative;
   $block: &;
 
@@ -20,18 +20,13 @@
 
   &__input {
     @include color-transitions();
+    @include focus();
     padding: .25rem .5rem;
     height: 100%;
     width: 100%;
     border: $control-border;
     border-radius: 0;
-    font-size: .9rem;
-
-    &:focus {
-      outline: none;
-      border-color: $accent;
-      box-shadow: 0 0 8px 2px rgba($accent, .25);
-    }
+    font-size: .85rem;
 
     &--has-text {
       padding: 1.25rem 0 .25rem .5rem;

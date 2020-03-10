@@ -87,3 +87,11 @@
 @mixin composite-transitions() {
   @include multiple-transitions((transform, opacity), $composition-transition-time);
 }
+
+@mixin focus() {
+  &:focus {
+    outline: none;
+    border-color: $accent;
+    box-shadow: 0 0 8px 2px rgba($accent, .25);
+  }
+}
