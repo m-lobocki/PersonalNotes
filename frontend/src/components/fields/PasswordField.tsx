@@ -11,7 +11,7 @@ export default class PasswordField extends Component<PasswordFieldProps & PropsW
             <TextField
                 {...this.props}
                 type="password"
-                fieldClassName="password-field"/>
+                fieldClassName={`password-field ${this.props.fieldClassName}`}/>
         );
     }
 }

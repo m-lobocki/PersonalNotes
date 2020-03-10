@@ -27,7 +27,7 @@ export default class TextField extends Component<TextFieldProps & HTMLProps<HTML
         delete props.label;
         delete props.fieldClassName;
         return (
-            <div className={c`text-field ${fieldClassName}`}>
+            <div className={c`field text-field ${fieldClassName}`}>
                 <input
                     className={c`text-field__input ${{'text-field__input--has-text': hasText}}`}
                     ref={this.inputRef}
