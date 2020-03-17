@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Component, createRef, HTMLProps} from 'react';
+import React, {ChangeEvent, ChangeEventHandler, Component, createRef, HTMLProps} from 'react';
 import "./TextField.scss";
 import {c} from "../../helpers/class-name";
 
@@ -6,6 +6,7 @@ export interface TextFieldProps {
     label: string;
     id: any;
     fieldClassName?: string;
+    onChange?: ChangeEventHandler<HTMLInputElement>
 }
 
 interface TextFieldState {
@@ -18,6 +19,7 @@ export default class TextField extends Component<TextFieldProps & HTMLProps<HTML
 
     inputChanged = (event: ChangeEvent<HTMLInputElement>) => {
         this.setState({hasText: Boolean(event.target.value)});
+        this.props.onChange?.(event);
     };
 
     render() {
@@ -29,10 +31,10 @@ export default class TextField extends Component<TextFieldProps & HTMLProps<HTML
         return (
             <div className={c`field text-field ${fieldClassName}`}>
                 <input
+                    {...props}
                     className={c`text-field__input ${{'text-field__input--has-text': hasText}}`}
                     ref={this.inputRef}
-                    onChange={this.inputChanged}
-                    {...props}/>
+                    onChange={this.inputChanged}/>
                 <label className="text-field__label" htmlFor={id}>{label}</label>
             </div>
         );
