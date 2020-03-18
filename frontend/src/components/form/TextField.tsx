@@ -1,6 +1,7 @@
-import React, {ChangeEvent, ChangeEventHandler, Component, createRef, HTMLProps} from 'react';
+import React, {ChangeEvent, ChangeEventHandler, Component, HTMLProps} from 'react';
 import "./TextField.scss";
 import {c} from "../../helpers/class-name";
+import {FormContext} from "./Form";
 
 export interface TextFieldProps {
     label: string;
@@ -14,12 +15,12 @@ interface TextFieldState {
 }
 
 export default class TextField extends Component<TextFieldProps & HTMLProps<HTMLInputElement>, TextFieldState> {
-    private inputRef = createRef<HTMLInputElement>();
     readonly state: TextFieldState = {hasText: false};
 
-    inputChanged = (event: ChangeEvent<HTMLInputElement>) => {
+    handleInputChanged = (event: ChangeEvent<HTMLInputElement>, onChange: ChangeEventHandler<HTMLInputElement>) => {
         this.setState({hasText: Boolean(event.target.value)});
         this.props.onChange?.(event);
+        onChange(event);
     };
 
     render() {
@@ -29,14 +30,22 @@ export default class TextField extends Component<TextFieldProps & HTMLProps<HTML
         delete props.label;
         delete props.fieldClassName;
         return (
-            <div className={c`field text-field ${fieldClassName}`}>
-                <input
-                    {...props}
-                    className={c`text-field__input ${{'text-field__input--has-text': hasText}}`}
-                    ref={this.inputRef}
-                    onChange={this.inputChanged}/>
-                <label className="text-field__label" htmlFor={id}>{label}</label>
-            </div>
+            <FormContext.Consumer>
+                {({onChange, state}) => {
+                    const value = state[id];
+                    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => this.handleInputChanged(event, onChange);
+                    return (
+                        <div className={c`field text-field ${fieldClassName}`}>
+                            <input
+                                {...props}
+                                className={c`text-field__input ${{'text-field__input--has-text': hasText}}`}
+                                value={value}
+                                onChange={handleInputChange}/>
+                            <label className="text-field__label" htmlFor={id}>{label}</label>
+                        </div>
+                    )
+                }}
+            </FormContext.Consumer>
         );
     }
 }
