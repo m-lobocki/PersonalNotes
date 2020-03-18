@@ -1,6 +1,7 @@
 import React, {Component, HTMLProps, PropsWithoutRef} from 'react';
 import TextField, {TextFieldProps} from "./TextField";
 import './PasswordField.scss';
+import {c} from "../../helpers/class-name";
 
 interface PasswordFieldProps extends TextFieldProps {
 }
@@ -11,7 +12,7 @@ export default class PasswordField extends Component<PasswordFieldProps & PropsW
             <TextField
                 {...this.props}
                 type="password"
-                fieldClassName={`password-field ${this.props.fieldClassName}`}/>
+                fieldClassName={c`password-field ${this.props.fieldClassName}`}/>
         );
     }
 }
