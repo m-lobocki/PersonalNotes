@@ -31,8 +31,9 @@ export default class TextField extends Component<TextFieldProps & HTMLProps<HTML
         delete props.fieldClassName;
         return (
             <FormContext.Consumer>
-                {({onChange, state}) => {
+                {({onChange, state, errors}) => {
                     const value = state[id];
+                    const error = errors[id];
                     const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => this.handleInputChanged(event, onChange);
                     return (
                         <div className={c`field text-field ${fieldClassName}`}>

@@ -5,16 +5,21 @@ interface FormProps<TState> {
     initialState: TState;
     className?: string;
     onSubmit?: FormEventHandler<HTMLFormElement>;
+    validate?: (state: any) => FormErrors<TState>;
+}
+
+export type FormErrors<TState> = {
+    [P in keyof TState]?: string;
 }
 
 export interface FormContextValueType {
     onChange: ChangeEventHandler<HTMLInputElement>;
     state: any;
+    errors: any;
 }
 
 export const FormContext = React.createContext<FormContextValueType>({
-    state: {}, onChange: () => {
-    }
+    state: {}, errors: {}, onChange: () => {}
 });
 
 export default class Form<TState> extends Component<FormProps<TState>, TState> {
@@ -26,11 +31,13 @@ export default class Form<TState> extends Component<FormProps<TState>, TState> {
     };
 
     render() {
-        const value: FormContextValueType = {onChange: this.handleFieldChange, state: this.state};
+        const {children, className, onSubmit, validate} = this.props;
+        const state = this.state;
+        const value: FormContextValueType = {onChange: this.handleFieldChange, state, errors: validate?.(state)};
         return (
             <FormContext.Provider value={value}>
-                <form className={c`form ${this.props.className}`} onSubmit={this.props.onSubmit}>
-                    {this.props.children}
+                <form className={c`form ${className}`} onSubmit={onSubmit}>
+                    {children}
                 </form>
             </FormContext.Provider>
         );
