@@ -13,5 +13,5 @@ export function c(literals: TemplateStringsArray, ...placeholders: ({ [key: stri
             }
         }
     }
-    return literals.filter(literal => literal.trim()).join(' ') + classes.join(' ');
+    return literals.filter(literal => literal.trim()).join(' ') + classes.join(' ').trim();
 }
