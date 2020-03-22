@@ -42,4 +42,12 @@
       }
     }
   }
+
+  &--invalid {
+    #{$block}__input {
+      @include focus($invalid-border-color);
+      border-color: $invalid-border-color;
+      background-color: $invalid-background-color;
+    }
+  }
 }

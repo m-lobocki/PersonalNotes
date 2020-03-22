@@ -1,7 +1,7 @@
 import React, {ChangeEvent, ChangeEventHandler, Component, HTMLProps} from 'react';
 import "./TextField.scss";
 import {c} from "../../helpers/class-name";
-import {FormContext} from "./Form";
+import {FormContext} from './FormContext';
 
 export interface TextFieldProps {
     label: string;
@@ -17,7 +17,7 @@ interface TextFieldState {
 export default class TextField extends Component<TextFieldProps & HTMLProps<HTMLInputElement>, TextFieldState> {
     readonly state: TextFieldState = {hasText: false};
 
-    handleInputChanged = (event: ChangeEvent<HTMLInputElement>, onChange: ChangeEventHandler<HTMLInputElement>) => {
+    handleInputChange = (event: ChangeEvent<HTMLInputElement>, onChange: ChangeEventHandler<HTMLInputElement>) => {
         this.setState({hasText: Boolean(event.target.value)});
         this.props.onChange?.(event);
         onChange(event);
@@ -31,16 +31,17 @@ export default class TextField extends Component<TextFieldProps & HTMLProps<HTML
         delete props.fieldClassName;
         return (
             <FormContext.Consumer>
-                {({onChange, state, errors}) => {
-                    const value = state[id];
+                {({onChange, onBlur, model, errors}) => {
+                    const value = model[id];
                     const error = errors[id];
-                    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => this.handleInputChanged(event, onChange);
+                    const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => this.handleInputChange(event, onChange);
                     return (
-                        <div className={c`field text-field ${fieldClassName}`}>
+                        <div className={c`field text-field ${fieldClassName} ${{'text-field--invalid': error}}`}>
                             <input
                                 {...props}
                                 className={c`text-field__input ${{'text-field__input--has-text': hasText}}`}
                                 value={value}
+                                onBlur={onBlur}
                                 onChange={handleInputChange}/>
                             <label className="text-field__label" htmlFor={id}>{label}</label>
                         </div>
